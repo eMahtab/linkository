@@ -1,0 +1,14 @@
+{
+  "name": "linko",
+  "version": "1.0.0",
+  "description": "Dont lose your bookmarks again",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mahtab Alam",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
