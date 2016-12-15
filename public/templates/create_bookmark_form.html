@@ -1,0 +1,32 @@
+<div class="form-group" >
+<label class="col-sm-2 control-label">Link</label >
+<div class="col-sm-10" >
+<input type="text" class="form-control" name="link" ng-model="bookmark.link" required />
+</div>
+</div>
+
+<div class="form-group" >
+<label class="col-sm-2 control-label">Description</label >
+<div class="col-sm-10" >
+<input type="text" class="form-control" name="description" ng-model="bookmark.description"  />
+</div >
+</div >
+
+<div class="form-group" >
+<label class="col-sm-2 control-label">Tags</label >
+<div class="col-sm-10" >
+<input type="text" class="form-control" name="tags" ng-model="bookmark.tags" required />
+<br/>
+<span><a ng-click="showCreateTagModal();">Create a new tag</a></span>
+</div >
+</div >
+
+<div ng-show="tags" class="col-sm-offset-2 col-sm-10">
+      <ul>
+        <li ng-repeat="tag in tags | filter:bookmark.tags">
+          <span>{{tag.tag}}</span>
+        </li>
+      </ul>
+</div>
+
+<button class="col-sm-offset-6 btn btn-primary btn-lg" type="submit">Save </button >

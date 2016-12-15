@@ -1,0 +1,35 @@
+<div style="padding-top: 100px;" class="container">
+			<div class="col-md-4 col-md-offset-4 panel panel-default">
+
+				<h1 style="margin-top:50px;" align="center" class="margin-base-vertical">Login to your account</h1>
+
+
+				<form ng-submit="login(loginData.email,loginData.password)" style="margin-top:50px;" class="margin-base-vertical">
+          <p class="input-group ">
+						<span class="input-group-addon"><span class="icon-envelope"></span></span>
+						<input ng-model="loginData.email" type="email" required class="form-control input-lg" name="email" placeholder="email address" />
+					</p>
+
+          <p class="input-group ">
+						<span class="input-group-addon"><span class="icon-key"></span></span>
+						<input ng-model="loginData.password" type="password" required class="form-control input-lg" name="password" placeholder="password" />
+					</p>
+
+          <br/>
+
+					<p class="text-center">
+						<button type="submit" class="btn btn-success btn-lg">Get In</button>
+					</p>
+				</form>
+
+				<div style="margin-top:50px;" class="margin-base-vertical">
+					<h5 align="center">Don't have an account? <a ui-sref="signup">Create one</a></h5>
+				</div>
+
+			<!--	<div align="center">
+	 			 <a href="/">Go back to the Home page</a>
+	 		 </div>-->
+			 <br/>
+
+			</div>
+</div>
