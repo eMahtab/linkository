@@ -1,5 +1,5 @@
 var app=angular.module('linkositoryApp',['ui.router','toaster','mgcrea.ngStrap','app.constants','app.controllers',
-                                        'app.factory']);
+                                        'app.factory','app.directives']);
 
 app.config(function($httpProvider){
   $httpProvider.interceptors.push('AuthInterceptor');
@@ -27,5 +27,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/list',
             templateUrl: 'templates/list.html',
             controller:'ListController'
+        })
+        .state('edit', {
+            url: '/edit/:id',
+            templateUrl: 'templates/edit-bookmark.html',
+            controller:'EditController'
         });
 });

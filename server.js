@@ -7,13 +7,14 @@ var db=require('./models/db.js');
 var signup=require('./routes/signup.js');
 var login=require('./routes/login.js');
 var tag=require('./routes/tags.js');
+var bookmark=require('./routes/bookmark.js');
 
 var jwtSecret = 'fjkdlsajfoew239053/3uk';
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/signup','/login','/tag','/tags']}));
+app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/bookmarks','/favicon.ico','/signup','/login','/tag','/tags','/bookmark']}));
 
 app.get('/',function(req,res){
    res.sendFile('index.html',{ root: __dirname });
@@ -28,6 +29,11 @@ app.post('/login',login.login,function(req,res){
 
 app.post('/tag',tag.tag);
 app.get('/tags',tag.tags);
+
+app.get('/bookmark/:id',bookmark.getBookmark);
+app.get('/bookmarks',bookmark.getBookmarks);
+app.post('/bookmark',bookmark.addBookmark);
+app.put('/bookmark/:id',bookmark.updateBookmark);
 
 var port = process.env.PORT || 8080;
 var server=app.listen(port,function(req,res){

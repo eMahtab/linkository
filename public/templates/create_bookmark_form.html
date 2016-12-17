@@ -1,32 +1,50 @@
+<div style="text-align:center" ng-show="bookmarkMessage">
+<span style="color: #9E1E1E" >{{bookmarkMessage}}</span>
+</div>
+<br/>
 <div class="form-group" >
 <label class="col-sm-2 control-label">Link</label >
 <div class="col-sm-10" >
-<input type="text" class="form-control" name="link" ng-model="bookmark.link" required />
+<input type="text" take-focus class="form-control" name="link" ng-model="bookmark.link" required />
 </div>
 </div>
 
-<div class="form-group" >
+<div class="form-group">
 <label class="col-sm-2 control-label">Description</label >
 <div class="col-sm-10" >
 <input type="text" class="form-control" name="description" ng-model="bookmark.description"  />
-</div >
-</div >
+</div>
+</div>
 
 <div class="form-group" >
 <label class="col-sm-2 control-label">Tags</label >
 <div class="col-sm-10" >
-<input type="text" class="form-control" name="tags" ng-model="bookmark.tags" required />
-<br/>
-<span><a ng-click="showCreateTagModal();">Create a new tag</a></span>
-</div >
-</div >
-
-<div ng-show="tags" class="col-sm-offset-2 col-sm-10">
-      <ul>
-        <li ng-repeat="tag in tags | filter:bookmark.tags">
-          <span>{{tag.tag}}</span>
-        </li>
-      </ul>
+   <div class="tag-input-ctn">
+          <div data-ng-repeat="(key, tag) in bookmark.inputTags" class="input-tag">
+                 <span style="font-size:18px">{{ tag }}</span>
+                 <span style="font-size:18px;padding-left:8px;padding-top:3px;cursor:pointer"
+                 ng-click="removeTag(tag);">&times;</span>
+          </div>
+          <input tag-input-field type="text" ng-show="showInputTagField" id="bookmarkTagsInput" placeholder="Tag your bookmark" ng-model="tagText.input" />
+   </div>
+   <span style="color: #9E1E1E">Note : At least one tag, Maximum 8 tags </span>
+</div>
 </div>
 
-<button class="col-sm-offset-6 btn btn-primary btn-lg" type="submit">Save </button >
+<div class="col-sm-offset-2 col-sm-10">
+    <div style="margin-top:15px;" class="col-sm-4" ng-repeat="t in tags | filter:tagText.input | limitTo:9">
+      <span class="tag label label-info" ng-click="selectTag(t);">{{t}}</span>
+    </div>
+</div>
+
+
+<div>
+
+<span><a ng-click="showCreateTagModal();">Create a new tag</a></span>
+<div class="modal-footer">
+       <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+       <button type="button"  ng-click="createBookmark(bookmark);"
+           class="btn btn-primary">Save Bookmark </button >
+     </div>
+
+</div>

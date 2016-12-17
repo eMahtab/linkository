@@ -1,2 +1,36 @@
 <h3 align="center">List View</h3>
 <button type="button" class="btn btn-primary" ng-click="showCreateBookmarkModal();">Create</button>
+
+<div class="container">
+  <div class="col-sm-8">
+    <table class="table table-striped table-bordered table-hover ">
+
+      <thead>
+        <tr class="info">
+          <th>Open Bookmark</th>
+          <th>Description</th>
+          <th>Link</th>
+          <th>Tags</th>
+          <th>Time</th>
+          <th>Operations</th>
+        </tr>
+      </thead>
+
+       <tbody>
+           <tr class="active" ng-repeat="bm in bookmarks">
+             <td><a target="_blank" href="{{bm.link}}">Open link</a></td>
+             <td>{{bm.description}}</td>
+             <td>{{bm.link}}</td>
+             <td>{{bm.tags}}</td>
+             <td>{{bm.created_at}}</td>
+             <td>
+               <span ui-sref="edit({id:bm._id})" style="font-size:20px;margin-left:10%" class="icon-edit"></span>
+               <span style="font-size:20px;margin-left:20%" class="icon-trash"></span>
+             </td>
+           </tr>
+       </tbody>
+
+    </table>
+  </div>
+
+</div>

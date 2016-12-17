@@ -31,6 +31,13 @@ var tagSchema = new mongoose.Schema({
   created_at:{type:Date,default:Date.now}
 });
 
+var bookmarkSchema = new mongoose.Schema({
+  link: {type: String},
+  description: {type: String},
+  tags: String,
+  created_at:{type:Date,default:Date.now}
+});
+
 userSchema.pre('save', function(next) {
     var user = this;
     console.log("Before Registering the user");
@@ -62,3 +69,4 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 mongoose.model('User', userSchema,'users' );
 mongoose.model('Tag', tagSchema,'tags' );
+mongoose.model('Bookmark', bookmarkSchema,'bookmarks' );
