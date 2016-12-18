@@ -58,8 +58,21 @@ exports.updateBookmark=function(req,res){
 
 
 exports.getBookmarks=function(req,res){
-   console.log("Creating new bookmark "+JSON.stringify(req.body));
    Bookmark.find({},function(err,bookmarks){
      res.status(200).send(bookmarks);
    });
 }
+
+
+
+exports.deleteBookmark=function(req,res){
+                             var id=req.params.id;
+                             Bookmark.findOneAndRemove({"_id":id},
+                             function(err){
+                                           if(err){
+                                               console.log("Error : "+err);
+                                               return res.status(404).send("Bookmark not found");
+                                               }
+                                           return res.status(200).send("Bookmark deleted Successfully");
+                                          });
+              }

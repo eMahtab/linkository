@@ -1,7 +1,7 @@
 var appControllers=angular.module('app.controllers',['toaster']);
 
 
-appControllers.controller('LoginController',function($scope,$http,CONSTANT,$state,AuthTokenFactory){
+appControllers.controller('LoginController',function($scope,$http,$window,$rootScope,CONSTANT,$state,AuthTokenFactory){
     console.log("Login Controller is all hooked up");
 
     $scope.loginData={};
@@ -13,6 +13,8 @@ appControllers.controller('LoginController',function($scope,$http,CONSTANT,$stat
       .then(function(response){
               console.log(JSON.stringify(response));
               AuthTokenFactory.setToken(response.data.token);
+              //$rootScope.loggedIn=true;
+              $window.localStorage.setItem('loggedIn',true);
               $state.go('list');
             },
             function(error){

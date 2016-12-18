@@ -1,7 +1,11 @@
 var appControllers=angular.module('app.controllers');
 
 
-appControllers.controller('EditController',function($scope,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('EditController',function($scope,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+
+  if($window.localStorage.getItem('loggedIn') !== 'true'){
+    $state.go('login');
+  }
 
     console.log("Edit Controller is all hooked up for "+JSON.stringify($stateParams));
     $scope.editBookmark={};
@@ -23,7 +27,7 @@ appControllers.controller('EditController',function($scope,$stateParams,$state,$
        }
     });
 
-    $scope.loadTags=function(){
+    $scope.fetchTags=function(){
       console.log("Loading tags from database");
       $http.get(CONSTANT.API_URL+'/tags')
       .then(function(response){
@@ -33,7 +37,7 @@ appControllers.controller('EditController',function($scope,$stateParams,$state,$
           $scope.editTags.sort();
       });
     }
-    $scope.loadTags();
+    $scope.fetchTags();
 
 
     $scope.removeEditTag=function(tag){
@@ -68,11 +72,48 @@ appControllers.controller('EditController',function($scope,$stateParams,$state,$
        .then(function(response){
                console.log("Bookmark updated successfully");
                toaster.pop('success','Bookmark updated successfully');
+               setTimeout(function(){$state.go('list');},2000);
             },
             function(error){
                console.log("Error while updating bookmark");
             }
           );
+    }
+
+    $scope.cancelUpdate=function(){
+      $state.go('list');
+    }
+
+    $scope.showCreateEditTagModal=function(){
+      $scope.newEditTag={};
+      $scope.editTagMessage=null;
+      $scope.editTagModal=$modal({scope:$scope,show:true,placement:'center',templateUrl:'templates/update_tag_modal.html'});
+      $scope.editTagText.input=null;
+    }
+
+    $scope.createNewEditTag=function(tag){
+      $scope.editTagMessage=null;
+      if(undefined_or_empty(tag.name)){
+        $scope.editTagMessage='Nay! looks like you forgot to name your tag';return;
+      }
+      if(!checkTagName(tag.name)){
+        $scope.editTagMessage='Oh! only alphabets(a-z) and hypen(-) can be used as tag name';
+        return;
+      }
+      console.log("Creating a new tag "+tag.name);
+      var request_body={"name":tag.name.trim().toLowerCase()};
+      $http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
+      .then(function(response){
+             console.log("Successfully created "+response.data);
+             toaster.pop('success','Tag created successfully');
+             $scope.fetchTags();
+             setTimeout(function(){$scope.editTagModal.hide();},2000);
+             focus('editBookmarkTagsInput');
+           }
+           ,function(error){
+             console.log("Error "+error);
+             $scope.editTagMessage="A tag with this name already exist";
+           });
     }
 
 
@@ -97,4 +138,22 @@ function commaSeparatedTags(tagsArray){
     }
   }
   return commaSeparatedTags;
+}
+
+function undefined_or_empty(value){
+  if(typeof value == 'undefined' || value == '' ){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function checkTagName(tagName){
+   if(/^[a-zA-Z-]+$/.test(tagName)){
+     console.log("Tag Name Valid");
+     return true;
+   }else{
+     console.log("Tag Name Invalid");
+     return false;
+   }
 }

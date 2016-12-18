@@ -1,5 +1,5 @@
 <div style="text-align:center" ng-show="editBookmarkMessage">
-<span style="color: #9E1E1E" >{{editBookmarkMessage}}</span>
+<span class="modal-error-message">{{editBookmarkMessage}}</span>
 </div>
 <br/>
 <div class="form-group" >
@@ -25,7 +25,7 @@
                  <span style="font-size:18px;padding-left:8px;padding-top:3px;cursor:pointer"
                  ng-click="removeEditTag(tag);">&times;</span>
           </div>
-          <input tag-input-field type="text" ng-show="showEditTagField" id="editBookmarkTagsInput"
+          <input tag-input-field  type="text" ng-show="showEditTagField" id="editBookmarkTagsInput"
           placeholder="Tag your bookmark" ng-model="editTagText.input" />
    </div>
    <!--<span style="color: #9E1E1E">Note : At least one tag, Maximum 8 tags </span>-->
@@ -34,16 +34,16 @@
 
 <div class="col-sm-offset-2 col-sm-10">
     <div style="margin-top:15px;" class="col-sm-4" ng-repeat="t in editTags | filter:editTagText.input | limitTo:9">
-      <span class="tag label label-info" ng-click="selectEditTag(t);">{{t}}</span>
+      <span class="badge" ng-click="selectEditTag(t);">{{t}}</span>
     </div>
 </div>
 
 
 <div>
 
-<span><a ng-click="showCreateTagModal();">Create a new tag</a></span>
+<span><a ng-click="showCreateEditTagModal();">Create a new tag</a></span>
 <div class="modal-footer">
-       <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+       <button type="button" class="btn btn-default" ng-click="cancelUpdate();">Cancel</button>
        <button type="button"  ng-click="updateBookmark(editBookmark);"
            class="btn btn-primary">Update Bookmark </button >
      </div>

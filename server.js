@@ -14,7 +14,10 @@ var jwtSecret = 'fjkdlsajfoew239053/3uk';
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/bookmarks','/favicon.ico','/signup','/login','/tag','/tags','/bookmark']}));
+//app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/bookmarks','/favicon.ico','/signup','/login','/tag','/tags','/bookmark']}));
+app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/signup','/login']}));
+
+
 
 app.get('/',function(req,res){
    res.sendFile('index.html',{ root: __dirname });
@@ -34,6 +37,7 @@ app.get('/bookmark/:id',bookmark.getBookmark);
 app.get('/bookmarks',bookmark.getBookmarks);
 app.post('/bookmark',bookmark.addBookmark);
 app.put('/bookmark/:id',bookmark.updateBookmark);
+app.delete('/bookmark/:id',bookmark.deleteBookmark);
 
 var port = process.env.PORT || 8080;
 var server=app.listen(port,function(req,res){

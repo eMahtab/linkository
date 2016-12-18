@@ -1,10 +1,15 @@
 var appControllers=angular.module('app.controllers');
 
 
-appControllers.controller('ListController',function($scope,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('ListController',function($scope,$window,$state,$modal,CONSTANT,$http,focus,toaster){
+
+   console.log("LoggedIn "+$window.localStorage.getItem('loggedIn'));
+   //var loggedIn=
+    if($window.localStorage.getItem('loggedIn') !== 'true'){
+      $state.go('login');
+    }
 
     console.log("List Controller is all hooked up");
-
 
     $scope.bookmark={};
     $scope.newTag={};
@@ -102,12 +107,14 @@ appControllers.controller('ListController',function($scope,$modal,CONSTANT,$http
        if(undefined_or_empty(bookmark.description)){$scope.bookmarkMessage='Please fill in bookmark description'; return;}
        if(bookmark.inputTags.length < 1){$scope.bookmarkMessage='Nay! we need at least one tag for bookmark'; return;}
        var comma_separated_tags=commaSeparatedTags(bookmark.inputTags);
-       var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags};
+       console.log("TIME IS "+Date.now().toString());
+       var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags,
+                         "created_at":Date.now().toString()};
        $http.post(CONSTANT.API_URL+'/bookmark',request_body,{headers:{"Content-Type":"application/json"}})
        .then(function(response){
                console.log("Bookmark created successfully");
                toaster.pop('success','Bookmark created successfully');
-               setTimeout(function(){$scope.bookmarkModal.hide();},2000);
+               setTimeout(function(){$scope.bookmarkModal.hide();$scope.showBookmarks();},2000);
             },
             function(error){
                console.log("Error while creating bookmark");
@@ -123,6 +130,22 @@ appControllers.controller('ListController',function($scope,$modal,CONSTANT,$http
     }
 
     $scope.showBookmarks();
+
+    $scope.showDeleteBookmarkModal=function(bookmark){
+      $scope.bookmarkToDelete=bookmark;
+      $scope.deleteBookmarkModal=$modal({scope:$scope,show:true,placement:'center',
+                              templateUrl:'templates/delete_bookmark_modal.html'});
+    }
+
+    $scope.deleteBookmark=function(){
+      $scope.deleteBookmarkModal.hide();
+      $http.delete(CONSTANT.API_URL+'/bookmark/' + $scope.bookmarkToDelete._id)
+           .then(function(response){
+              $scope.bookmarkToDelete=null;
+              toaster.pop("success","Bookmark deleted successfully");
+              setTimeout(function(){$scope.showBookmarks();},2000);
+           });
+    }
 
 });
 

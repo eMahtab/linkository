@@ -1,5 +1,5 @@
 <div style="text-align:center" ng-show="bookmarkMessage">
-<span style="color: #9E1E1E" >{{bookmarkMessage}}</span>
+<span class="modal-error-message">{{bookmarkMessage}}</span>
 </div>
 <br/>
 <div class="form-group" >
@@ -27,13 +27,13 @@
           </div>
           <input tag-input-field type="text" ng-show="showInputTagField" id="bookmarkTagsInput" placeholder="Tag your bookmark" ng-model="tagText.input" />
    </div>
-   <span style="color: #9E1E1E">Note : At least one tag, Maximum 8 tags </span>
+   <span class="modal-error-message">Note : At least one tag, Maximum 8 tags </span>
 </div>
 </div>
 
 <div class="col-sm-offset-2 col-sm-10">
     <div style="margin-top:15px;" class="col-sm-4" ng-repeat="t in tags | filter:tagText.input | limitTo:9">
-      <span class="tag label label-info" ng-click="selectTag(t);">{{t}}</span>
+      <span class="badge " ng-click="selectTag(t);">{{t}}</span>
     </div>
 </div>
 
