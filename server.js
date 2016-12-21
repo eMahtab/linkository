@@ -15,9 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 //app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/bookmarks','/favicon.ico','/signup','/login','/tag','/tags','/bookmark']}));
-app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/signup','/login']}));
-
-
+app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/','/fonts','/signup','/login']}));
 
 app.get('/',function(req,res){
    res.sendFile('index.html',{ root: __dirname });

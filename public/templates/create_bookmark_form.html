@@ -19,21 +19,30 @@
 <div class="form-group" >
 <label class="col-sm-2 control-label">Tags</label >
 <div class="col-sm-10" >
-   <div class="tag-input-ctn">
-          <div data-ng-repeat="(key, tag) in bookmark.inputTags" class="input-tag">
+   <div style="width:100%;display: inline-block;border: 1px solid #ccc;border-radius: 4px"  class="tag-input-ctn">
+          <div data-ng-repeat="(key, tag) in bookmark.inputTags"
+          style="border: 1px solid #E95420;padding: 3px 7px;
+          vertical-align: middle;display: inline-block; float: left;
+          text-align: center;border-radius: 6px;margin: 2px 5px 2px 0px;" class="input-tag">
                  <span style="font-size:18px">{{ tag }}</span>
                  <span style="font-size:18px;padding-left:8px;padding-top:3px;cursor:pointer"
                  ng-click="removeTag(tag);">&times;</span>
           </div>
-          <input tag-input-field type="text" ng-show="showInputTagField" id="bookmarkTagsInput" placeholder="Tag your bookmark" ng-model="tagText.input" />
+          <input style="padding: 0px 10px;display: inline-block; border-radius: 4px;height:35px" tag-input-field type="text" ng-show="showInputTagField"
+          id="bookmarkTagsInput" placeholder="Tag your bookmark" ng-model="tagText.input" />
    </div>
+   <div style="margin-top:10px" >
    <span class="modal-error-message">Note : At least one tag, Maximum 8 tags </span>
+   </div>
 </div>
+
 </div>
 
 <div class="col-sm-offset-2 col-sm-10">
-    <div style="margin-top:15px;" class="col-sm-4" ng-repeat="t in tags | filter:tagText.input | limitTo:9">
-      <span class="badge " ng-click="selectTag(t);">{{t}}</span>
+    <div style="word-wrap: break-word;margin-top:15px;" class="col-sm-4" ng-repeat="t in tags | filter:tagText.input | limitTo:9">
+       <div style="border: 1px solid #E95420;padding: 3px 7px;vertical-align: middle;text-align: center;border-radius: 6px;">
+       <span style="cursor:pointer;font-size: 15px; font-weight: bold;color: black;border-radius:3px;" ng-click="selectTag(t);">{{t}}</span>
+       </div>
     </div>
 </div>
 

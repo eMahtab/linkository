@@ -2,7 +2,7 @@
 			<div class="col-md-4 col-md-offset-4 panel panel-default">
 
 				<h1 style="margin-top:50px;" align="center" class="margin-base-vertical">Login</h1>
-
+        <h4 align="center" style="color:#e95420;" ng-show="loginError">{{loginError}}</h4>
 
 				<form ng-submit="login(loginData.email,loginData.password)" style="margin-top:50px;" class="margin-base-vertical">
           <p class="input-group ">

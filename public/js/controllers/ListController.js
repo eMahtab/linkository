@@ -11,6 +11,11 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
 
     console.log("List Controller is all hooked up");
 
+
+
+    $scope.search={"description":'',"link":'',"tags":'',"created_at":''};
+    $scope.sortOrder={};
+    $scope.sortOrder.order='-created_at';
     $scope.bookmark={};
     $scope.newTag={};
     $scope.tagMessage=null;
@@ -20,6 +25,68 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
     $scope.tagInputFocus=false;
     $scope.showInputTagField=true;
     $scope.bookmarkMessage=null;
+
+    $scope.changeOrder=function(order){
+      console.log("Changing Order to "+order)
+      $scope.sortOrder.order=order;
+    }
+
+    $scope.searchBookmarks=function(bookmark){
+
+
+
+      if($scope.search.description === '' && $scope.search.link === ''
+         && $scope.search.tags === '' && $scope.search.created_at === ''){
+        return true;
+      }
+      else{
+
+        if($scope.search.description !== '' && bookmark.description.toLowerCase().indexOf($scope.search.description.toLowerCase()) !== -1){
+           console.log("Searching _ Description");
+           return true;
+        }
+        if($scope.search.link !== '' && bookmark.link.toLowerCase().indexOf($scope.search.link.toLowerCase()) !== -1){
+           console.log("Searching _ Link");
+           return true;
+        }
+
+        if($scope.search.created_at == null && $scope.search.description == ''
+           && $scope.search.link == '' && $scope.search.tags == '' ){
+          return true;
+        }
+
+        if($scope.search.created_at !== '' && typeof($scope.search.created_at) !== 'undefined' && $scope.search.created_at !== null){
+          // console.log(bookmark.created_at +"   "+$scope.search.created_at.toISOString()  )
+           //extractDate($scope.search.created_at.toISOString())
+           //extractDate(bookmark.created_at)
+            /*  if($scope.search.created_at === bookmark.created_at){
+                console.log("Time matched");
+                return true;
+              }else{
+                console.log("Time didn't matched");
+              }*/
+              return compareDate(bookmark.created_at,$scope.search.created_at.toISOString());
+        }
+
+
+        if($scope.search.tags !== ''){
+           console.log("Searching _ Tags");
+           var searchTags=$scope.search.tags.toLowerCase().split(',');
+           for(var i=0;i<searchTags.length;i++){
+                 if(bookmark.tags.indexOf(searchTags[i]) === -1){
+                   return false;
+                 }
+           }
+             return true;
+        }
+
+
+
+        return false;
+
+      }
+
+    }
 
     $scope.showCreateBookmarkModal=function(){
       var cacheBurst=Date.now();
@@ -180,4 +247,27 @@ function checkTagName(tagName){
      console.log("Tag Name Invalid");
      return false;
    }
+}
+
+function extractDate(isoDate){
+  var date=new Date(isoDate);
+  var day=date.getDate();
+  var month=date.getMonth()+1;
+  var year=date.getFullYear();
+  console.log("Extracted date "+day+"-"+month+"-"+year);
+  return day+"-"+month+"-"+year;
+}
+
+
+function compareDate(bookmarkDate,search){
+  var bookmark_date=new Date(bookmarkDate);
+  var search_criteria=new Date(search);
+
+  if(bookmark_date.getDate() == search_criteria.getDate()
+     && bookmark_date.getMonth() == search_criteria.getMonth()
+     && bookmark_date.getFullYear() == search_criteria.getFullYear()){
+       return true;
+     }else{
+       return false;
+     }
 }
