@@ -5,7 +5,7 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
     if($window.localStorage.getItem('loggedIn') !== 'true'){
       $state.go('login');
     }
-  
+
 
     $scope.search={"description":'',"link":'',"tags":'',"created_at":''};
     $scope.sortOrder={};
@@ -94,7 +94,6 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
                                           return element.tag;
                                         }
                                       }).sort();
-          //console.log("Sorted Tags "+response.data.map(function(element){return element.tag;}).sort())
       });
     }
 

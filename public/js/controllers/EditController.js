@@ -95,7 +95,6 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
       var request_body={"name":tag.name.trim().toLowerCase(),"created_by":$window.localStorage.getItem('username')};
       $http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
       .then(function(response){
-             console.log("Successfully created "+response.data);
              toaster.pop('success','Tag created successfully');
              $scope.fetchTags();
              setTimeout(function(){$scope.editTagModal.hide();},2000);
