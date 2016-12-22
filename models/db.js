@@ -28,10 +28,12 @@ var userSchema = new mongoose.Schema({
 });
 
 var tagSchema = new mongoose.Schema({
-  tag: {type: String, unique:true},
+  tag: {type: String},
   created_at:{type:Date,default:Date.now},
   created_by:String
 });
+
+tagSchema.index({ tag: 1, created_by: 1}, { unique: true });
 
 var bookmarkSchema = new mongoose.Schema({
   link: {type: String},
