@@ -7,6 +7,15 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
     $state.go('login');
   }
 
+  $scope.logout=function(){
+    console.log("Logging out");
+    $window.localStorage.removeItem('auth-token');
+    $window.localStorage.removeItem('loggedIn');
+    $window.localStorage.removeItem('username');
+    $state.go('index');
+    toaster.pop('success',"Yup! you are logged out");
+  }
+
     console.log("Edit Controller is all hooked up for "+JSON.stringify($stateParams));
     $scope.editBookmark={};
     $scope.editTags=[];
@@ -29,7 +38,7 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
 
     $scope.fetchTags=function(){
       console.log("Loading tags from database");
-      $http.get(CONSTANT.API_URL+'/tags')
+      $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
       .then(function(response){
           console.log(JSON.stringify(response.data));
           $scope.allTags=response.data.map(function(element){return element.tag;}).sort();
@@ -101,7 +110,7 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
         return;
       }
       console.log("Creating a new tag "+tag.name);
-      var request_body={"name":tag.name.trim().toLowerCase()};
+      var request_body={"name":tag.name.trim().toLowerCase(),"created_by":$window.localStorage.getItem('username')};
       $http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
       .then(function(response){
              console.log("Successfully created "+response.data);

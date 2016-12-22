@@ -16,7 +16,7 @@ exports.addBookmark=function(req,res){
    newBookmark.link=req.body.link;
    newBookmark.description=req.body.description;
    newBookmark.tags=req.body.tags;
-
+   newBookmark.created_by=req.body.created_by;
    newBookmark.save(function(err,savedBookmark){
        if(err){
          res.status(400).send('Error occurred while creating bookmark');
@@ -58,7 +58,8 @@ exports.updateBookmark=function(req,res){
 
 
 exports.getBookmarks=function(req,res){
-   Bookmark.find({},function(err,bookmarks){
+  console.log("Query String "+req.query.created_by);
+   Bookmark.find({"created_by":req.query.created_by},function(err,bookmarks){
      res.status(200).send(bookmarks);
    });
 }

@@ -11,7 +11,14 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
 
     console.log("List Controller is all hooked up");
 
-
+    $scope.logout=function(){
+      console.log("Logging out");
+      $window.localStorage.removeItem('auth-token');
+      $window.localStorage.removeItem('loggedIn');
+      $window.localStorage.removeItem('username');
+      $state.go('index');
+      toaster.pop('success',"Yup! you are logged out");
+    }
 
     $scope.search={"description":'',"link":'',"tags":'',"created_at":''};
     $scope.sortOrder={};
@@ -116,10 +123,14 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
 
     $scope.loadTags=function(){
       console.log("Loading tags from database");
-      $http.get(CONSTANT.API_URL+'/tags')
+      $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
       .then(function(response){
           console.log(JSON.stringify(response.data));
-          $scope.tags=response.data.map(function(element){return element.tag;}).sort();
+          $scope.tags=response.data.map(function(element){
+                                        if($scope.bookmark.inputTags.indexOf(element.tag)==-1){
+                                          return element.tag;
+                                        }
+                                      }).sort();
           //console.log("Sorted Tags "+response.data.map(function(element){return element.tag;}).sort())
       });
     }
@@ -152,7 +163,7 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
         return;
       }
       console.log("Creating a new tag "+tag.name);
-      var request_body={"name":tag.name.trim().toLowerCase()};
+      var request_body={"name":tag.name.trim().toLowerCase(),"created_by":$window.localStorage.getItem('username')};
       $http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
       .then(function(response){
              console.log("Successfully created "+response.data);
@@ -176,7 +187,7 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
        var comma_separated_tags=commaSeparatedTags(bookmark.inputTags);
        console.log("TIME IS "+Date.now().toString());
        var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags,
-                         "created_at":Date.now().toString()};
+                         "created_at":Date.now().toString(),"created_by":$window.localStorage.getItem('username')};
        $http.post(CONSTANT.API_URL+'/bookmark',request_body,{headers:{"Content-Type":"application/json"}})
        .then(function(response){
                console.log("Bookmark created successfully");
@@ -190,7 +201,8 @@ appControllers.controller('ListController',function($scope,$window,$state,$modal
     }
 
     $scope.showBookmarks=function(){
-      $http.get(CONSTANT.API_URL+'/bookmarks')
+      console.log("B "+CONSTANT.API_URL+'/bookmarks?created_by='+$window.localStorage.getItem('username'));
+      $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+$window.localStorage.getItem('username'))
       .then(function(res){
         $scope.bookmarks=res.data;
       })

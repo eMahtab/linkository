@@ -14,6 +14,7 @@ appControllers.controller('LoginController',function($scope,$http,$window,$rootS
       .then(function(response){
               console.log(JSON.stringify(response));
               AuthTokenFactory.setToken(response.data.token);
+              $window.localStorage.setItem('username',response.data.username);
               //$rootScope.loggedIn=true;
               $window.localStorage.setItem('loggedIn',true);
               $state.go('list');

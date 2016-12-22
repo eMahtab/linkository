@@ -3,8 +3,8 @@ var mongoose = require( 'mongoose' );
 var bcrypt=require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-//var dbURI = 'mongodb://localhost/test';
-var dbURI =process.env.dbURI
+var dbURI = 'mongodb://localhost/test';
+//var dbURI =process.env.dbURI
 //var dbURI = 'mongodb://your_username:your_password@ds043615.mongolab.com:43615/leavethemarks';
 mongoose.connect(dbURI);
 
@@ -29,14 +29,16 @@ var userSchema = new mongoose.Schema({
 
 var tagSchema = new mongoose.Schema({
   tag: {type: String, unique:true},
-  created_at:{type:Date,default:Date.now}
+  created_at:{type:Date,default:Date.now},
+  created_by:String
 });
 
 var bookmarkSchema = new mongoose.Schema({
   link: {type: String},
   description: {type: String},
   tags: String,
-  created_at:{type:Date,default:Date.now}
+  created_at:{type:Date,default:Date.now},
+  created_by:String
 });
 
 userSchema.pre('save', function(next) {

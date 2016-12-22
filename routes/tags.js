@@ -6,6 +6,7 @@ exports.tag=function(req,res){
 
    var newTag=new Tag();
    newTag.tag=tagname;
+   newTag.created_by=req.body.created_by;
 
    newTag.save(function(err,savedTag){
        if(err){
@@ -18,7 +19,7 @@ exports.tag=function(req,res){
 
 
 exports.tags=function(req,res){
-   Tag.find({},function(err,tags){
+   Tag.find({"created_by":req.query.created_by},function(err,tags){
      res.status(200).send(tags);
    })
 };

@@ -27,6 +27,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/signup.html',
             controller:'SignupController'
         })
+        .state('logout', {
+            url: '/edit/:id',
+            templateUrl: 'templates/edit-bookmark.html',
+            controller:'EditController'
+        })
         .state('list', {
             url: '/list',
             templateUrl: 'templates/list.html',
