@@ -3,8 +3,8 @@ var mongoose = require( 'mongoose' );
 var bcrypt=require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-//var dbURI = 'mongodb://localhost/test';
-var dbURI =process.env.dbURI
+var dbURI = 'mongodb://localhost/test';
+//var dbURI =process.env.dbURI
 //var dbURI = 'mongodb://your_username:your_password@ds043615.mongolab.com:43615/leavethemarks';
 mongoose.connect(dbURI);
 

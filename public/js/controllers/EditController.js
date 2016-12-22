@@ -1,28 +1,15 @@
 var appControllers=angular.module('app.controllers');
 
 
-appControllers.controller('EditController',function($scope,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('EditController',function($scope,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
   if($window.localStorage.getItem('loggedIn') !== 'true'){
     $state.go('login');
   }
 
-  $scope.logout=function(){
-    console.log("Logging out");
-    $window.localStorage.removeItem('auth-token');
-    $window.localStorage.removeItem('loggedIn');
-    $window.localStorage.removeItem('username');
-    $state.go('index');
-    toaster.pop('success',"Yup! you are logged out");
-  }
-
-    console.log("Edit Controller is all hooked up for "+JSON.stringify($stateParams));
-    $scope.editBookmark={};
-    $scope.editTags=[];
-    $scope.allTags=[];
-    $scope.editTagText={};
-    $scope.editTagText.input=null;
-    $scope.editBookmarkMessage=null;
+    $scope.editBookmark={};       $scope.editTags=[];
+    $scope.allTags=[];            $scope.editTagText={};
+    $scope.editTagText.input=null;     $scope.editBookmarkMessage=null;
 
     $http.get(CONSTANT.API_URL+'/bookmark/'+$stateParams.id)
     .then(function(response){
@@ -37,7 +24,6 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
     });
 
     $scope.fetchTags=function(){
-      console.log("Loading tags from database");
       $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
       .then(function(response){
           console.log(JSON.stringify(response.data));
@@ -50,7 +36,6 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
 
 
     $scope.removeEditTag=function(tag){
-      console.log("Removing Tag "+tag);
       $scope.editBookmark.inputTags.splice($scope.editBookmark.inputTags.indexOf(tag),1);
       $scope.editTags.push(tag);
       $scope.editTags.sort();
@@ -59,11 +44,9 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
     }
 
     $scope.selectEditTag=function(tag){
-      console.log("Selecting Tag "+ tag);
       $scope.editBookmark.inputTags.push(tag);
       $scope.editTags.splice($scope.editTags.indexOf(tag),1)
       $scope.editTags.sort();
-      console.log("Emptying tag input field");
       $scope.editTagText.input=null;
       if($scope.editBookmark.inputTags.length >= 8){$scope.showEditTagField=false;}
       focus('editBookmarkTagsInput');
@@ -72,14 +55,13 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
     $scope.updateBookmark=function(bookmark){
       $scope.editBookmarkMessage=null;
       console.log("Bookmark "+JSON.stringify(bookmark));
-       if(undefined_or_empty(bookmark.link)){$scope.editBookmarkMessage='Nay! looks like you forgot bookmark link'; return;}
-       if(undefined_or_empty(bookmark.description)){$scope.editBookmarkMessage='Please fill in bookmark description'; return;}
+       if(Helpers.undefined_or_empty(bookmark.link)){$scope.editBookmarkMessage='Nay! looks like you forgot bookmark link'; return;}
+       if(Helpers.undefined_or_empty(bookmark.description)){$scope.editBookmarkMessage='Please fill in bookmark description'; return;}
        if(bookmark.inputTags.length < 1){$scope.editBookmarkMessage='Nay! we need at least one tag for bookmark'; return;}
-       var comma_separated_tags=commaSeparatedTags(bookmark.inputTags);
+       var comma_separated_tags=Helpers.commaSeparatedTags(bookmark.inputTags);
        var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags};
        $http.put(CONSTANT.API_URL+'/bookmark/'+$stateParams.id,request_body,{headers:{"Content-Type":"application/json"}})
        .then(function(response){
-               console.log("Bookmark updated successfully");
                toaster.pop('success','Bookmark updated successfully');
                setTimeout(function(){$state.go('list');},2000);
             },
@@ -102,10 +84,10 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
 
     $scope.createNewEditTag=function(tag){
       $scope.editTagMessage=null;
-      if(undefined_or_empty(tag.name)){
+      if(Helpers.undefined_or_empty(tag.name)){
         $scope.editTagMessage='Nay! looks like you forgot to name your tag';return;
       }
-      if(!checkTagName(tag.name)){
+      if(!Helpers.checkTagName(tag.name)){
         $scope.editTagMessage='Oh! only alphabets(a-z) and hypen(-) can be used as tag name';
         return;
       }
@@ -125,8 +107,6 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
            });
     }
 
-
-
   });
 
 
@@ -134,35 +114,4 @@ appControllers.controller('EditController',function($scope,$window,$stateParams,
     return allTags.filter(function (tag) {
         return bookmarkTags.indexOf(tag) == -1;
     });
-}
-
-function commaSeparatedTags(tagsArray){
-  var size=tagsArray.length;
-  var commaSeparatedTags='';
-  for(var i=0;i<size;i++){
-    if(i < size-1){
-      commaSeparatedTags +=tagsArray[i]+',';
-    }else{
-      commaSeparatedTags +=tagsArray[i];
-    }
-  }
-  return commaSeparatedTags;
-}
-
-function undefined_or_empty(value){
-  if(typeof value == 'undefined' || value == '' ){
-    return true;
-  }else{
-    return false;
-  }
-}
-
-function checkTagName(tagName){
-   if(/^[a-zA-Z-]+$/.test(tagName)){
-     console.log("Tag Name Valid");
-     return true;
-   }else{
-     console.log("Tag Name Invalid");
-     return false;
-   }
 }

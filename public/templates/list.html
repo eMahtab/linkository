@@ -1,15 +1,5 @@
 <div class="container">
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #d34615;border-color: #d34615;">
-<div class="container">
-  <span class="navbar-brand">Linkository</span>
-  <div class="navbar-header navbar-right" >
-    <a style="cursor:pointer" class="navbar-brand "
-       ng-click="logout();">Logout
-    </a>
-  </div>
-</div>
-</nav>
-
+     <ng-include src="'templates/nav.tmpl.html'"></ng-include>
 <div style="position:fixed; top:10%; right:3%;">
 <button type="button" class="btn btn-primary btn-circle" ng-click="showCreateBookmarkModal();">
   <span class="icon-pencil"></span></button>

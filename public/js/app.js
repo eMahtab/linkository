@@ -1,5 +1,5 @@
 var app=angular.module('linkositoryApp',['ui.router','toaster','mgcrea.ngStrap','app.constants','app.controllers',
-                                        'app.factory','app.directives']);
+                                        'app.factory','app.service','app.directives']);
 
 app.config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {placement:'bottom',dateFormat: 'dd-MM-yyyy',autoclose: true });
