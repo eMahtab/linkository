@@ -1,6 +1,5 @@
 var appControllers=angular.module('app.controllers');
 
-
 appControllers.controller('ListController',function($scope,Helpers,$window,$state,$modal,CONSTANT,$http,focus,toaster){
     if($window.localStorage.getItem('loggedIn') !== 'true'){
       $state.go('login');
@@ -62,17 +61,17 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
       $scope.bookmarkModal=$modal({scope:$scope,show:true,controller:'BookmarkController',
                                    templateUrl:'templates/create_bookmark_modal.html?n='+cacheBurst
                                    });
-    }
+      }
 
     $scope.showCreateTagModal=function(){
           $scope.tagModal=$modal({scope:$scope,show:true,controller:'TagController',
                               placement:'center',templateUrl:'templates/create_tag_modal.html'});
-    }
+      }
 
     $scope.showDeleteBookmarkModal=function(bookmark){
       $scope.bookmarkToDelete=bookmark;
       $scope.deleteBookmarkModal=$modal({scope:$scope,show:true,placement:'center',controller:'BookmarkController',
                                          templateUrl:'templates/delete_bookmark_modal.html'});
-    }
+     }
 
 });

@@ -28,8 +28,8 @@
                  <span style="font-size:18px;padding-left:8px;padding-top:3px;cursor:pointer"
                  ng-click="removeTag(tag);">&times;</span>
           </div>
-          <input style="padding: 0px 10px;display: inline-block; border-radius: 4px;height:35px"
-           tag-input-field type="text" ng-show="showInputTagField"
+  <input style="padding: 0px 10px;display: inline-block; border-radius: 4px;height:35px"
+          tag-input-field type="text" ng-show="showInputTagField"
           id="bookmarkTagsInput" placeholder="Tag your bookmark" ng-model="tagText.input" />
    </div>
    <div style="margin-top:10px" >
@@ -40,12 +40,11 @@
 </div>
 
 <div class="col-sm-offset-2 col-sm-10">
-    <div style="word-wrap: break-word;margin-top:15px;" class="col-sm-4"
-         ng-repeat="t in tags | filter:tagText.input | limitTo:9">
-       <div style="border: 1px solid #E95420;padding: 3px 7px;vertical-align: middle;
-           text-align: center;border-radius: 6px;">
-       <span style="cursor:pointer;font-size: 15px; font-weight: bold;color: black;border-radius:3px;"
-            ng-click="selectTag(t);">{{t}}</span>
+
+    <div style="word-wrap: break-word;margin-top:15px;" class="col-sm-4" ng-repeat="t in tags | filter:tagText.input | limitTo:9">
+       <div style="border: 1px solid #E95420;padding: 3px 7px;vertical-align: middle;text-align: center;border-radius: 6px;">
+       <span style="cursor:pointer;font-size: 15px; font-weight: bold;color: black;border-radius:3px;" ng-click="selectTag(t);">{{t}}</span>
+
        </div>
     </div>
 </div>

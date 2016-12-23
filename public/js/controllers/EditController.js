@@ -1,14 +1,15 @@
 var appControllers=angular.module('app.controllers');
 
+
 appControllers.controller('EditController',function($scope,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
   if($window.localStorage.getItem('loggedIn') !== 'true'){
     $state.go('login');
   }
-
     $scope.editBookmark={};         $scope.editTags=[];
     $scope.allTags=[];              $scope.editTagText={};
     $scope.editTagText.input=null;  $scope.editBookmarkMessage=null;
+
 
     $http.get(CONSTANT.API_URL+'/bookmark/'+$stateParams.id)
     .then(function(response){
@@ -22,6 +23,7 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
        }
     });
 
+
     $scope.loadTags=function(){
       $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
       .then(function(response){
@@ -31,8 +33,8 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
           $scope.editTags.sort();
       });
     }
-    $scope.loadTags();
 
+    $scope.loadTags();
 
     $scope.removeEditTag=function(tag){
       $scope.editBookmark.inputTags.splice($scope.editBookmark.inputTags.indexOf(tag),1);
@@ -67,6 +69,7 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
             }
           );
     }
+
 
     $scope.$on('newTagAdded', function(event, data){
       focus('editBookmarkTagsInput');
