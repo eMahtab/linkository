@@ -57,14 +57,13 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
     }
 
     $scope.showCreateBookmarkModal=function(){
-      var cacheBurst=Date.now();
       $scope.bookmarkModal=$modal({scope:$scope,show:true,controller:'BookmarkController',
-                                   templateUrl:'templates/create_bookmark_modal.html?n='+cacheBurst
+                                   templateUrl:'templates/create_bookmark_modal.html'
                                    });
       }
 
     $scope.showCreateTagModal=function(){
-          $scope.tagModal=$modal({scope:$scope,show:true,controller:'TagController',
+      $scope.tagModal=$modal({scope:$scope,show:true,controller:'TagController',
                               placement:'center',templateUrl:'templates/create_tag_modal.html'});
       }
 

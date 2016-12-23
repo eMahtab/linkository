@@ -64,11 +64,10 @@ appControllers.controller('BookmarkController',function($http,focus,$scope,CONST
         );
   }
 
-  $scope.deleteBookmark=function(){
+  $scope.deleteBookmark=function(_id){
     $scope.deleteBookmarkModal.hide();
-    $http.delete(CONSTANT.API_URL+'/bookmark/' + $scope.bookmarkToDelete._id)
+    $http.delete(CONSTANT.API_URL+'/bookmark/' + _id)
          .then(function(response){
-            $scope.bookmarkToDelete=null;
             toaster.pop("success","Bookmark deleted successfully");
             setTimeout(function(){$scope.showBookmarks();},2000);
          });
