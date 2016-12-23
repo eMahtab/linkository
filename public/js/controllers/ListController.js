@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('ListController',function($scope,Helpers,$window,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$window,$state,$modal,CONSTANT,$http,focus,toaster){
     if($window.localStorage.getItem('loggedIn') !== 'true'){
       $state.go('login');
     }
@@ -9,11 +9,9 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
     $scope.sortOrder={}; $scope.sortOrder.order='-created_at';
 
     $scope.showBookmarks=function(){
-      console.log("B "+CONSTANT.API_URL+'/bookmarks?created_by='+$window.localStorage.getItem('username'));
-      $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+$window.localStorage.getItem('username'))
-      .then(function(res){
-        $scope.bookmarks=res.data;
-      })
+      BookmarkService.getBookmarks().then(function(res){
+          $scope.bookmarks=res.data;
+      });
     }
 
     $scope.showBookmarks();

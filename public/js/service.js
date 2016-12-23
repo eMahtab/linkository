@@ -56,3 +56,21 @@ appService.service('Helpers',function(){
 
      }
 });
+
+
+appService.service('Storage',function($window){
+  var store = $window.localStorage;
+      return{
+            getUsername: getUsername
+      };
+    function getUsername() {
+      return store.getItem('username');
+    }
+});
+
+
+appService.service('BookmarkService',function($http,CONSTANT,Storage){
+   this.getBookmarks = function() {
+            return $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+Storage.getUsername());
+        };
+});
