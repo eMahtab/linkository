@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('TagController',function($http,$rootScope,focus,$scope,CONSTANT,Helpers,$window,toaster,$state){
+appControllers.controller('TagController',function(TagService,$http,$rootScope,focus,$scope,CONSTANT,Helpers,$window,toaster,$state){
 
   $scope.newTag={};
   $scope.tagMessage=null;
@@ -15,8 +15,9 @@ appControllers.controller('TagController',function($http,$rootScope,focus,$scope
       $scope.tagMessage='Oh! only alphabets(a-z) and hypen(-) can be used as tag name';
       focus('tagInputControl'); return;
     }
-    var request_body={"name":tag.name.trim().toLowerCase(),"created_by":$window.localStorage.getItem('username')};
-    $http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
+    var post_body={"name":tag.name.trim().toLowerCase(),"created_by":$window.localStorage.getItem('username')};
+    //$http.post(CONSTANT.API_URL+'/tag',request_body,{headers:{'Content-Type': 'application/json'}})
+    TagService.createTag(post_body)
     .then(function(response){
            toaster.pop('success','Tag created successfully');
            $rootScope.$broadcast('newTagAdded', 'New Tag added');

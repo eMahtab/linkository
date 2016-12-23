@@ -1,7 +1,7 @@
 var appControllers=angular.module('app.controllers');
 
 
-appControllers.controller('EditController',function($scope,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
   if($window.localStorage.getItem('loggedIn') !== 'true'){
     $state.go('login');
@@ -10,8 +10,7 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
     $scope.allTags=[];              $scope.editTagText={};
     $scope.editTagText.input=null;  $scope.editBookmarkMessage=null;
 
-
-    $http.get(CONSTANT.API_URL+'/bookmark/'+$stateParams.id)
+    BookmarkService.getBookmark($stateParams.id)
     .then(function(response){
        $scope.editBookmark.link=response.data.link;
        $scope.editBookmark.description=response.data.description;
@@ -25,9 +24,8 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
 
 
     $scope.loadTags=function(){
-      $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
+      TagService.getTags()
       .then(function(response){
-          console.log(JSON.stringify(response.data));
           $scope.allTags=response.data.map(function(element){return element.tag;}).sort();
           $scope.editTags=getSuggestionTags($scope.allTags,$scope.editBookmark.inputTags);
           $scope.editTags.sort();
@@ -59,14 +57,12 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
        if(bookmark.inputTags.length < 1){$scope.editBookmarkMessage='Nay! we need at least one tag for bookmark'; return;}
        var comma_separated_tags=Helpers.commaSeparatedTags(bookmark.inputTags);
        var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags};
-       $http.put(CONSTANT.API_URL+'/bookmark/'+$stateParams.id,request_body,{headers:{"Content-Type":"application/json"}})
+       BookmarkService.updateBookmark($stateParams.id,request_body)
        .then(function(response){
                toaster.pop('success','Bookmark updated successfully');
                setTimeout(function(){$state.go('list');},2000);
             },
-            function(error){
-               console.log("Error while updating bookmark");
-            }
+            function(error){ console.log("Error while updating bookmark"); }
           );
     }
 

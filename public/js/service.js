@@ -70,7 +70,34 @@ appService.service('Storage',function($window){
 
 
 appService.service('BookmarkService',function($http,CONSTANT,Storage){
+   this.getBookmark = function(_id) {
+       return $http.get(CONSTANT.API_URL+'/bookmark/'+_id);
+     };
+
    this.getBookmarks = function() {
-            return $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+Storage.getUsername());
-        };
+        return $http.get(CONSTANT.API_URL+'/bookmarks?created_by='+Storage.getUsername());
+      };
+
+   this.createBookmark = function(bookmark) {
+        return $http.post(CONSTANT.API_URL+'/bookmark',bookmark,{headers:{"Content-Type":"application/json"}});
+      };
+
+   this.deleteBookmark = function(_id){
+     return $http.delete(CONSTANT.API_URL+'/bookmark/'+_id);
+   };
+
+   this.updateBookmark = function(_id,bookmark){
+     return $http.put(CONSTANT.API_URL+'/bookmark/'+_id,bookmark,{headers:{"Content-Type":"application/json"}});
+   }
+});
+
+
+appService.service('TagService',function($http,CONSTANT,Storage){
+   this.getTags = function(){
+     return $http.get(CONSTANT.API_URL+'/tags?created_by='+Storage.getUsername());
+   };
+
+   this.createTag = function(tag){
+     return $http.post(CONSTANT.API_URL+'/tag',tag,{headers:{'Content-Type': 'application/json'}});
+   }
 });

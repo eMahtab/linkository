@@ -16,7 +16,7 @@ appControllers.controller('SignupController',function($scope,$http,CONSTANT,toas
       .then(function(response){
              toaster.pop('success','Cheers! your account is created');
              setTimeout(function(){$state.go('login');},3000) ;
-           }
+            }
            ,function(error){
              $scope.signupError='An account with same username or email already exist';
            });

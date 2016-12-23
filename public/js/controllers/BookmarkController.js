@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('BookmarkController',function($http,focus,$scope,CONSTANT,Helpers,$window,toaster,$state){
+appControllers.controller('BookmarkController',function(BookmarkService,TagService,Storage,$http,focus,$scope,CONSTANT,Helpers,$window,toaster,$state){
     $scope.bookmark={};
     $scope.bookmark.inputTags=[];
     $scope.tags=[];
@@ -9,23 +9,19 @@ appControllers.controller('BookmarkController',function($http,focus,$scope,CONST
     $scope.showInputTagField=true;
 
     $scope.loadTags=function(){
-      console.log("Loading tags from database");
-      $http.get(CONSTANT.API_URL+'/tags?created_by='+$window.localStorage.getItem('username'))
-      .then(function(response){
-          console.log(JSON.stringify(response.data));
-          $scope.tags=response.data.map(function(element){
+      TagService.getTags()
+        .then(function(response){
+                      $scope.tags=response.data.map(function(element){
                                         if($scope.bookmark.inputTags.indexOf(element.tag)==-1){
                                           return element.tag;
                                         }
                                       }).sort();
-      });
+            });
      }
-
     $scope.loadTags();
 
     $scope.$on('newTagAdded', function(event, data){
       focus('bookmarkTagsInput');
-      console.log("Loading New tags ... ");
       $scope.loadTags();
     });
 
@@ -51,26 +47,25 @@ appControllers.controller('BookmarkController',function($http,focus,$scope,CONST
      if(Helpers.undefined_or_empty(bookmark.description)){$scope.bookmarkMessage='Please fill in bookmark description'; return;}
      if(bookmark.inputTags.length < 1){$scope.bookmarkMessage='Nay! we need at least one tag for bookmark'; return;}
      var comma_separated_tags=Helpers.commaSeparatedTags(bookmark.inputTags);
-     var request_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags,
-                       "created_at":Date.now().toString(),"created_by":$window.localStorage.getItem('username')};
-     $http.post(CONSTANT.API_URL+'/bookmark',request_body,{headers:{"Content-Type":"application/json"}})
+     var post_body={"link":bookmark.link,"description":bookmark.description,"tags":comma_separated_tags,
+                       "created_at":Date.now().toString(),"created_by":Storage.getUsername()};
+
+     BookmarkService.createBookmark(post_body)
      .then(function(response){
              toaster.pop('success','Bookmark created successfully');
              setTimeout(function(){$scope.bookmarkModal.hide();$scope.showBookmarks();},2000);
           },
-          function(error){
-             console.log("Error while creating bookmark");
-          }
+          function(error){console.log("Error while creating bookmark"); }
         );
   }
 
   $scope.deleteBookmark=function(_id){
-        $http.delete(CONSTANT.API_URL+'/bookmark/' + _id)
+      BookmarkService.deleteBookmark(_id)
          .then(function(response){
-            $scope.deleteBookmarkModal.hide();
-            toaster.pop("success","Bookmark deleted successfully");
-            setTimeout(function(){$scope.showBookmarks();},2000);
-         });
-  }
+                $scope.deleteBookmarkModal.hide();
+                toaster.pop("success","Bookmark deleted successfully");
+                setTimeout(function(){$scope.showBookmarks();},2000);
+              });
+   }
 
 });
