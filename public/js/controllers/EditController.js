@@ -73,7 +73,6 @@ appControllers.controller('EditController',function($scope,Helpers,$window,$stat
 
     $scope.$on('newTagAdded', function(event, data){
       focus('editBookmarkTagsInput');
-      console.log("Loading New tags ... ");
       $scope.loadTags();
     });
 
