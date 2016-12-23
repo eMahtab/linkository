@@ -23,7 +23,6 @@ app.get('/',function(req,res){
 
 app.post('/signup',signup.signup);
 app.post('/login',login.login,function(req,res){
-    console.log("Successfully authenticated "+req.body.username);
     var token = jwt.sign({username: req.body.username}, jwtSecret);
     res.status(200).send({token: token,username: req.body.username});
 });

@@ -41,7 +41,7 @@ appControllers.controller('ListController',function($scope,Helpers,$window,$stat
             return true;
         }
         if($scope.search.created_at !== '' && typeof($scope.search.created_at) !== 'undefined' && $scope.search.created_at !== null){
-             return compareDate(bookmark.created_at,$scope.search.created_at.toISOString());
+             return Helpers.compareDate(bookmark.created_at,$scope.search.created_at.toISOString());
         }
         if($scope.search.tags !== ''){
            var searchTags=$scope.search.tags.toLowerCase().split(',');

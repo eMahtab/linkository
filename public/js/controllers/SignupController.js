@@ -18,7 +18,7 @@ appControllers.controller('SignupController',function($scope,$http,CONSTANT,toas
              setTimeout(function(){$state.go('login');},3000) ;
            }
            ,function(error){
-             $scope.signupError=error.data;
+             $scope.signupError='An account with same username or email already exist';
            });
     }
 
