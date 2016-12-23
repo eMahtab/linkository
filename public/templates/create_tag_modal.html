@@ -1,0 +1,17 @@
+<div class="modal" role="dialog" id="tagModal" >
+
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button class="close" ng-click="tagModal.hide()" type="button">x</button>
+           <h4 class="modal-title">Create Tag</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+                 <ng-include src="'templates/create_tag_form.html'"></ng-include>
+          </form>
+        </div>
+      </div>
+    </div>
+
+</div>

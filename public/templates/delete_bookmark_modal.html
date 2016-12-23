@@ -1,0 +1,35 @@
+<div class="modal" role="dialog" id="deleteBookmarkModal" >
+
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button class="close" ng-click="deleteBookmarkModal.hide()" type="button">x</button>
+           <h4 class="modal-title">Delete Bookmark</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+             <span class="modal-error-message" style="font-weight:bold;">Are you sure you want to delete this bookmark?</span>
+             <div style="margin-top:30px;">
+             <p><span style="font-weight:700;color:#31708F">Bookmark Description</span><br/>
+               {{bookmarkToDelete.description}}
+             </p>
+             <p><span style="font-weight:700;color:#31708F">Bookmark Link </span><br/>
+               {{bookmarkToDelete.link}}
+             </p>
+             <p><span style="font-weight:700;color:#31708F">Bookmark Tags </span><br/>
+               {{bookmarkToDelete.tags}}
+             </p>
+           </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+               <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+               <button type="button" ng-click="deleteBookmark();"
+                   class="btn btn-primary">Delete Bookmark </button >
+        </div>
+
+      </div>
+    </div>
+
+</div>

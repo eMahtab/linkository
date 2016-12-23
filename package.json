@@ -1,0 +1,21 @@
+{
+  "name": "linko",
+  "version": "1.0.0",
+  "description": "Dont lose your bookmarks again",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "author": "Mahtab Alam",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.1",
+    "body-parser": "^1.15.2",
+    "bower": "^1.8.0",
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.2.1",
+    "mongoose": "^4.7.2"
+  }
+}

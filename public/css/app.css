@@ -1,0 +1,88 @@
+.main-page-logo{
+  margin-top: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.main-page-logo__text{
+  font-size: 10px;
+}
+
+
+.tagline{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.controls{
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a:active{
+-webkit-box-shadow: 0 0 5px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 5px rgba(0,0,0, .75);
+box-shadow: 0 0 5px rgba(0,0,0, .75);
+}
+
+.button {
+    padding: 8px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin-left:10px;
+    cursor: pointer;
+  }
+
+.login {
+    background-color: white;
+    color: black;
+    border: 1px solid ;
+    border-radius: 5px
+}
+
+.signup {
+    background-color: white;
+    color: black;
+    border: 1px solid ;
+    border-radius: 5px
+}
+
+a{
+  text-decoration: none !important;
+}
+
+
+
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    /* background-color: #aea79f; */
+    border-radius: 6px;
+}
+
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 20px;
+}
