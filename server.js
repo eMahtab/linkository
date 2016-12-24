@@ -6,7 +6,7 @@ var expressJwt = require('express-jwt');
 var db=require('./models/db.js');
 
 var user=require('./routes/user.js');
-var tag=require('./routes/tags.js');
+var tag=require('./routes/tag.js');
 var bookmark=require('./routes/bookmark.js');
 
 var jwtSecret = 'kjwdjs65$ikksop0982shj';

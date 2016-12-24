@@ -7,7 +7,6 @@ exports.getBookmark=function(req,res){
    });
 }
 
-
 exports.addBookmark=function(req,res){
    var newBookmark=new Bookmark();
    newBookmark.link=req.body.link; newBookmark.description=req.body.description;
