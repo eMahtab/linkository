@@ -9,6 +9,15 @@ app.config(function($httpProvider){
   $httpProvider.interceptors.push('AuthInterceptor');
 });
 
+app.run(function($rootScope,AuthService,$state){
+      $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+         if(toState.authenticate && toState.name !== 'login' && !AuthService.isLoggedIn()){
+           event.preventDefault();
+           $state.transitionTo('login');
+         }
+      });
+});
+
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
@@ -27,19 +36,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/signup.html',
             controller:'SignupController'
         })
-        .state('logout', {
-            url: '/edit/:id',
-            templateUrl: 'templates/edit-bookmark.html',
-            controller:'EditController'
-        })
         .state('list', {
             url: '/list',
             templateUrl: 'templates/list.html',
-            controller:'ListController'
+            controller:'ListController',
+            authenticate: true
         })
         .state('edit', {
             url: '/edit/:id',
             templateUrl: 'templates/edit-bookmark.html',
-            controller:'EditController'
+            controller:'EditController',
+            authenticate: true
         });
 });

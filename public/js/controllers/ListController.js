@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$window,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$window,$state,$modal,focus,toaster){
     if($window.localStorage.getItem('loggedIn') !== 'true'){
       $state.go('login');
     }
