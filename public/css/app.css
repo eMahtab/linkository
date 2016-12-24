@@ -76,7 +76,6 @@ a{
     vertical-align: middle;
     white-space: nowrap;
     text-align: center;
-    /* background-color: #aea79f; */
     border-radius: 6px;
 }
 
@@ -89,4 +88,155 @@ a{
   font-size: 12px;
   line-height: 1.42;
   border-radius: 20px;
+}
+
+
+.ubuntu-text{
+  color:#e95420;
+}
+
+.tagContainer{
+  width:100%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px
+}
+
+.bookmarkTag{
+  border: 1px solid #E95420;
+  padding: 3px 7px;
+  vertical-align: middle;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  border-radius: 6px;
+  margin: 2px 5px 2px 0px;
+}
+
+.tagLabel{
+  font-size:18px
+}
+
+.removeTag{
+  font-size:18px;
+  padding-left:8px;
+  padding-top:3px;
+  cursor:pointer
+}
+
+.tag-input-field{
+  padding: 0px 10px;
+  display: inline-block;
+  border-radius: 4px;
+  height:35px
+}
+
+.tagSuggestionContainer{
+  word-wrap: break-word;
+  margin-top:15px;
+}
+
+.tagOuter{
+  border: 1px solid #E95420;
+  padding: 3px 7px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.suggestedTag{
+  cursor:pointer;
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  border-radius:3px;
+}
+
+.tagNote{
+  margin-top:10px
+}
+
+.tag-name-warning{
+  margin-left:19%
+}
+
+.text-align-center{
+  text-align:center
+}
+
+.bold-font{
+  font-weight:bold;
+}
+
+.delete-bookmark{
+  margin-top:30px;
+}
+
+.delete-bookmark-heading{
+  font-weight:700;color:#31708F
+}
+
+.edit-panel{
+  margin-top:15%
+}
+
+.ubuntu-border{
+  background-color: #d34615;
+  border-color: #d34615;
+}
+
+.bookmark-list{
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.create-bookmark-icon{
+  position:fixed;
+  top:10%;
+  right:3%;
+}
+
+.bookmark-list-container{
+  padding-top: 100px;
+}
+
+.column-width{
+  width:10%
+}
+
+.sorting-icon{
+  margin-left:15px;
+  cursor:pointer;
+}
+
+.edit-action{
+  cursor:pointer;
+  font-size:20px;
+  margin-left:10%
+}
+
+.delete-action{
+  cursor:pointer;
+  font-size:20px;
+  margin-left:20%
+}
+
+.gap{
+  margin-top:50px;
+}
+
+.login-panel{
+  padding-top: 100px;
+}
+
+.signup-panel{
+  padding-top: 55px;
+}
+
+.signup-element{
+  margin-top:20px;
+}
+
+.signup-form{
+  margin-top:40px;
 }

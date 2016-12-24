@@ -2,14 +2,27 @@ var mongoose = require( 'mongoose' );
 var User = mongoose.model( 'User' );
 
 
+exports.signup=function(req,res){
+   var newuser=new User();
+   newuser.username=req.body.username;
+   newuser.email=req.body.email;
+   newuser.password=req.body.password;
+
+   newuser.save(function(err,savedUser){
+       if(err){
+         res.status(400).send('An account with same username or email already exist');
+       }else{
+         res.status(201).send({"username":savedUser.username});
+       }
+   });
+}
+
 exports.login=function(req,res,next){
     var email=req.body.email;
     var password=req.body.password;
 
     User.findOne({email:email}, function(err,user){
-      console.log("User "+user);
       if(user==null){
-        console.log("user with that email is not found");
         res.status(400).end('No account with this email');
       }
      else{

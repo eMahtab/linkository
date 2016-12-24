@@ -1,11 +1,9 @@
 var mongoose = require( 'mongoose' );
 var Tag = mongoose.model( 'Tag' );
 
-exports.tag=function(req,res){
-   var tagname=req.body.name;
-
+exports.createTag=function(req,res){
    var newTag=new Tag();
-   newTag.tag=tagname;
+   newTag.tag=req.body.name;
    newTag.created_by=req.body.created_by;
 
    newTag.save(function(err,savedTag){
@@ -17,8 +15,7 @@ exports.tag=function(req,res){
    });
 }
 
-
-exports.tags=function(req,res){
+exports.getTags=function(req,res){
    Tag.find({"created_by":req.query.created_by},function(err,tags){
      res.status(200).send(tags);
    })

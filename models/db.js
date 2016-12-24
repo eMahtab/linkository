@@ -5,7 +5,6 @@ var SALT_WORK_FACTOR = 10;
 
 var dbURI = 'mongodb://localhost/test';
 //var dbURI =process.env.dbURI
-//var dbURI = 'mongodb://your_username:your_password@ds043615.mongolab.com:43615/leavethemarks';
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
@@ -45,21 +44,16 @@ var bookmarkSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
     var user = this;
-    console.log("Before Registering the user");
-    // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
 
     // generate a salt
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if (err) return next(err);
         // hash the password using our new salt
-        console.log("Salt "+salt);
         bcrypt.hash(user.password, salt, function(err, hash) {
             if (err) return next(err);
-
             // override the cleartext password with the hashed one
             user.password = hash;
-            console.log("Hash : "+hash);
             next();
         });
     });
