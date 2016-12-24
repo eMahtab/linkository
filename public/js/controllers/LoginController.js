@@ -1,12 +1,12 @@
 var appControllers=angular.module('app.controllers',['toaster']);
 
-appControllers.controller('LoginController',function($scope,$http,$window,$rootScope,CONSTANT,$state,AuthTokenFactory){
+appControllers.controller('LoginController',function(UserService,$scope,$window,$state,AuthTokenFactory){
     $scope.loginData={};
 
     $scope.login=function(email,password){
       $scope.loginError=null;
       var request_body={"email":email,"password":password};
-      $http.post(CONSTANT.API_URL+'/login',request_body,{headers:{'Content-Type': 'application/json'}})
+      UserService.login(request_body)
       .then(function(response){
               AuthTokenFactory.setToken(response.data.token);
               $window.localStorage.setItem('username',response.data.username);
