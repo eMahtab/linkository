@@ -65,8 +65,7 @@ appControllers.controller('EditController',function(TagService,$scope,BookmarkSe
             function(error){ console.log("Error while updating bookmark"); }
           );
     }
-
-
+    
     $scope.$on('newTagAdded', function(event, data){
       focus('editBookmarkTagsInput');
       $scope.loadTags();
