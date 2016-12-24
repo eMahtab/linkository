@@ -2,9 +2,6 @@ var appControllers=angular.module('app.controllers');
 
 appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
-  if($window.localStorage.getItem('loggedIn') !== 'true'){
-    $state.go('login');
-  }
     $scope.editBookmark={};         $scope.editTags=[];
     $scope.allTags=[];              $scope.editTagText={input:null};
     $scope.editBookmarkMessage=null;
