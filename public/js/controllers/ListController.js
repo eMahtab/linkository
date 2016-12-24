@@ -1,6 +1,5 @@
 var appControllers=angular.module('app.controllers');
-
-appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$window,$state,$modal,focus,toaster){
+appControllers.controller('ListController',function(Storage,BookmarkService,$scope,Helpers,$state,$modal,focus,toaster){
 
     $scope.showBookmarks=function(){
       BookmarkService.getBookmarks().then(function(res){

@@ -21,6 +21,7 @@ appControllers.controller('BookmarkController',function(BookmarkService,TagServi
     $scope.loadTags();
 
     $scope.$on('newTagAdded', function(event, data){
+      $scope.tagText.input=null;
       focus('bookmarkTagsInput');
       $scope.loadTags();
     });

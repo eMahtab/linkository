@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
+appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
     $scope.editBookmark={};         $scope.editTags=[];
     $scope.allTags=[];              $scope.editTagText={input:null};
