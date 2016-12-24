@@ -1,0 +1,29 @@
+.modal-backdrop.am-fade {
+opacity: .7;
+transition: opacity .35s linear;
+}
+.modal-backdrop.am-fade.ng-enter {
+opacity: 0;
+}
+.modal-backdrop.am-fade.ng-enter.ng-enter-active {
+opacity: .5;
+}
+
+.modal-backdrop.am-fade.ng-leave {
+opacity: .5;
+}
+.modal-backdrop.am-fade.ng-leave.ng-leave-active {
+opacity: 0;
+}
+
+
+.modal.center .modal-dialog {
+position:fixed;
+top:30%;
+left:50%;
+min-width:320px;
+max-width:630px;
+width:50%;
+-webkit-transform:translateX(-50%) translateY(-50%);
+transform:translateX(-50%) translateY(-50%)
+}

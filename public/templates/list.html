@@ -1,27 +1,25 @@
 <div class="container">
      <ng-include src="'templates/nav.tmpl.html'"></ng-include>
-<div style="position:fixed; top:10%; right:3%;">
-<button type="button" class="btn btn-primary btn-circle" ng-click="showCreateBookmarkModal();">
-  <span class="icon-pencil"></span></button>
+<div class="create-bookmark-icon">
+   <button type="button" class="btn btn-primary btn-circle" ng-click="showCreateBookmarkModal();">
+   <span class="icon-pencil"></span></button>
 </div>
 
-<div style="padding-top: 100px;">
-
+<div class="bookmark-list-container">
   <div class="row">
   <div class="col-md-12">
-    <table ng-controller="SearchController" class="table  table-hover table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;">
-
+    <table ng-controller="SearchController" class="table table-hover table-striped table-bordered bookmark-list">
       <thead >
         <tr >
-          <th style="width:10%">Bookmark</th>
+          <th class="column-width">Bookmark</th>
           <th >Description</th>
           <th >Link</th>
           <th >Tags</th>
           <th >Time
-             <span ng-click="changeOrder('created_at');" style="margin-left:15px;cursor:pointer;" class="icon-arrow-up"></span>
-             <span ng-click="changeOrder('-created_at');" style="margin-left:15px;cursor:pointer;" class="icon-arrow-down"></span>
+             <span ng-click="changeOrder('created_at');" class="icon-arrow-up sorting-icon"></span>
+             <span ng-click="changeOrder('-created_at');" class="icon-arrow-down sorting-icon"></span>
           </th>
-          <th style="width:10%">Edit / Delete</th>
+          <th class="column-width">Edit / Delete</th>
         </tr>
       </thead>
 
@@ -41,8 +39,8 @@
              <td>{{bm.tags}}</td>
              <td>{{bm.created_at | date:"dd-MM-yyyy' ,' hh:mm:ss a"}} </td>
              <td>
-               <span ui-sref="edit({id:bm._id})" style="cursor:pointer;font-size:20px;margin-left:10%" class="icon-edit"></span>
-               <span ng-click="showDeleteBookmarkModal(bm)" style="cursor:pointer;font-size:20px;margin-left:20%" class="icon-trash"></span>
+               <span ui-sref="edit({id:bm._id})" class="icon-edit edit-action"></span>
+               <span ng-click="showDeleteBookmarkModal(bm)" class="icon-trash delete-action"></span>
              </td>
            </tr>
        </tbody>
