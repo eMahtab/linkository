@@ -2,26 +2,26 @@
 			<div class="col-md-4 col-md-offset-4 panel panel-default">
 				<h1 style="margin-top:20px;" align="center" class="margin-base-vertical">Signup</h1>
           <h4 align="center" style="color:#e95420;" ng-show="signupError">{{signupError}}</h4>
-				<form style="margin-top:40px;" ng-submit="signup(signupData.username,signupData.email,signupData.password,signupData.confirmPassword);" class="margin-base-vertical">
+				<form style="margin-top:40px;" ng-submit="signup();" class="margin-base-vertical">
 					<p class="input-group">
  						<span class="input-group-addon"><span class="icon-user"></span></span>
- 						<input autofocus ng-model="signupData.username" type="text" required class="form-control input-lg" name="username" placeholder="username" />
+ 						<input autofocus ng-model="user.username" type="text" required class="form-control input-lg" name="username" placeholder="username" />
  					</p>
 
           <p class="input-group">
 						<span class="input-group-addon"><span class="icon-envelope"></span></span>
-						<input ng-model="signupData.email" type="email" required class="form-control input-lg" name="email" placeholder="email address" />
+						<input ng-model="user.email" type="email" required class="form-control input-lg" name="email" placeholder="email address" />
 					</p>
 
           <p class="input-group">
 						<span class="input-group-addon"><span class="icon-key"></span></span>
-						<input ng-model="signupData.password"
+						<input ng-model="user.password"
 						type="password" required class="form-control input-lg" name="password" placeholder="password" />
 					</p>
 
 					<p class="input-group">
 						<span class="input-group-addon"><span class="icon-key"></span></span>
-						<input ng-model="signupData.confirmPassword"
+						<input ng-model="user.confirmPassword"
 						type="password" required class="form-control input-lg" name="confirmPassword"
 						placeholder="confirm password" />
 					</p>

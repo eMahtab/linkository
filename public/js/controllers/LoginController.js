@@ -1,7 +1,7 @@
-var appControllers=angular.module('app.controllers',['toaster']);
+var appControllers=angular.module('app.controllers',[]);
 
-appControllers.controller('LoginController',function(UserService,$scope,$window,$state,AuthTokenFactory){
-    $scope.loginData={};
+appControllers.controller('LoginController',function(UserService,Storage,$scope,$state,AuthTokenFactory){
+    $scope.user={};
 
     $scope.login=function(email,password){
       $scope.loginError=null;
@@ -9,8 +9,8 @@ appControllers.controller('LoginController',function(UserService,$scope,$window,
       UserService.login(request_body)
       .then(function(response){
               AuthTokenFactory.setToken(response.data.token);
-              $window.localStorage.setItem('username',response.data.username);
-              $window.localStorage.setItem('loggedIn',true);
+              Storage.save('username',response.data.username);
+              Storage.save('loggedIn',true);
               $state.go('list');
             },
             function(error){ $scope.loginError="Oops! Invalid email or password";});

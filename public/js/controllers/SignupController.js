@@ -1,16 +1,16 @@
 var appControllers=angular.module('app.controllers');
 
 appControllers.controller('SignupController',function(UserService,$scope,toaster,$state){
-    $scope.signupData={};
+    $scope.user={};
 
-    $scope.signup=function(username,email,password,confirmPassword){
+    $scope.signup=function(){
       $scope.signupError=null;
-      if(confirmPassword !== password){
+      if($scope.user.confirmPassword !== $scope.user.password){
           $scope.signupError='Opps! password did not match, type again';
-          $scope.signupData.confirmPassword="";
+          $scope.user.confirmPassword="";
           return;
       }
-      var request_body={"username":username,"email":email,"password":password};
+      var request_body={"username":$scope.user.username,"email":$scope.user.email,"password":$scope.user.password};
       UserService.signup(request_body)
       .then(function(response){
              toaster.pop('success','Cheers! your account is created');

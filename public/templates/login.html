@@ -4,15 +4,15 @@
 				<h1 style="margin-top:50px;" align="center" class="margin-base-vertical">Login</h1>
         <h4 align="center" style="color:#e95420;" ng-show="loginError">{{loginError}}</h4>
 
-				<form ng-submit="login(loginData.email,loginData.password)" style="margin-top:50px;" class="margin-base-vertical">
+				<form ng-submit="login(user.email,user.password)" style="margin-top:50px;" class="margin-base-vertical">
           <p class="input-group ">
 						<span class="input-group-addon"><span class="icon-envelope"></span></span>
-						<input autofocus ng-model="loginData.email" type="email" required class="form-control input-lg" name="email" placeholder="email address" />
+						<input autofocus ng-model="user.email" type="email" required class="form-control input-lg" name="email" placeholder="email address" />
 					</p>
 
           <p class="input-group ">
 						<span class="input-group-addon"><span class="icon-key"></span></span>
-						<input ng-model="loginData.password" type="password" required class="form-control input-lg" name="password" placeholder="password" />
+						<input ng-model="user.password" type="password" required class="form-control input-lg" name="password" placeholder="password" />
 					</p>
 
           <br/>

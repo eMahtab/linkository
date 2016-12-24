@@ -1,19 +1,17 @@
 var appControllers=angular.module('app.controllers');
 
-
 appControllers.controller('EditController',function(TagService,$scope,BookmarkService,Helpers,$window,$stateParams,$state,$modal,CONSTANT,$http,focus,toaster){
 
   if($window.localStorage.getItem('loggedIn') !== 'true'){
     $state.go('login');
   }
     $scope.editBookmark={};         $scope.editTags=[];
-    $scope.allTags=[];              $scope.editTagText={};
-    $scope.editTagText.input=null;  $scope.editBookmarkMessage=null;
+    $scope.allTags=[];              $scope.editTagText={input:null};
+    $scope.editBookmarkMessage=null;
 
     BookmarkService.getBookmark($stateParams.id)
     .then(function(response){
-       $scope.editBookmark.link=response.data.link;
-       $scope.editBookmark.description=response.data.description;
+       $scope.editBookmark=response.data;
        $scope.editBookmark.inputTags=response.data.tags.split(',').sort();
        if($scope.editBookmark.inputTags.length ==8){
          $scope.showEditTagField=false;
@@ -65,7 +63,7 @@ appControllers.controller('EditController',function(TagService,$scope,BookmarkSe
             function(error){ console.log("Error while updating bookmark"); }
           );
     }
-    
+
     $scope.$on('newTagAdded', function(event, data){
       focus('editBookmarkTagsInput');
       $scope.loadTags();

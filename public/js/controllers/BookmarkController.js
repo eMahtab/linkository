@@ -1,6 +1,6 @@
 var appControllers=angular.module('app.controllers');
 
-appControllers.controller('BookmarkController',function(BookmarkService,TagService,Storage,$http,focus,$scope,CONSTANT,Helpers,$window,toaster,$state){
+appControllers.controller('BookmarkController',function(BookmarkService,TagService,Storage,focus,$scope,CONSTANT,Helpers,toaster,$state){
     $scope.bookmark={};
     $scope.bookmark.inputTags=[];
     $scope.tags=[];

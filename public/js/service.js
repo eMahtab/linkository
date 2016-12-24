@@ -63,7 +63,8 @@ appService.service('Storage',function($window){
       return{
             getUsername: getUsername,
             setUsername: setUsername,
-            remove:remove
+            remove:remove,
+            save:save
       };
     function getUsername() {
       return store.getItem('username');
@@ -74,6 +75,11 @@ appService.service('Storage',function($window){
     function remove(key){
       return store.removeItem(key);
     }
+
+    function save(key,value){
+      return store.setItem(key,value);
+    }
+
 });
 
 
