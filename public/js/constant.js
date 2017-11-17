@@ -10,4 +10,4 @@ var appConstants=angular.module('app.constants',[])
 
 
 var appConstants=angular.module('app.constants',[])
-                        .constant('CONSTANT',{"API_URL":"http://www.linkository.herokuapp.com"});                        
+                        .constant('CONSTANT',{"API_URL":"http://linkository.herokuapp.com"});                        
