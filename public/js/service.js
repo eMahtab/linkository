@@ -136,7 +136,7 @@ appService.service('UserService',function($http,CONSTANT,Storage){
       };
 
       this.login = function(user){
-        return $http.post(CONSTANT.API_URL+'/login',user,{headers:{'Content-Type': 'application/json'}});
+        return $http.post('/login',user,{headers:{'Content-Type': 'application/json'}});
       };
 
       this.logout = function(){
