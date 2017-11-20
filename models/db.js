@@ -3,7 +3,10 @@ var mongoose = require( 'mongoose' );
 var bcrypt=require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
+//You can either pass the DB URI as String or set it as an environment variable
+
 //var dbURI = 'mongodb://localhost/test';
+
 var dbURI =process.env.dbURI;
 
 mongoose.connect(dbURI);
